@@ -20,9 +20,13 @@ public class CurrentWeapon : MonoBehaviour
 
     public void PickupWeapon(GameObject weapon)
     {
-        // TODO: Pool the objects?
         _currentWeapon = weapon;
         _details = weapon.GetComponent<WeaponDetails>();
+
+        // If the player has picked up a new weapon, we should start using
+        // that immediately.
+        StopAllCoroutines();
+        _coolingDown = false;
     }
 
     public void FireWeapon(Vector3 spawn, Quaternion rotation)
@@ -41,12 +45,11 @@ public class CurrentWeapon : MonoBehaviour
         }
 
         StartCoroutine(FireBullet(spawn, rotation));
-
     }
 
     IEnumerator FireBullet(Vector3 spawn, Quaternion rotation)
     {
-        var copy = Instantiate(_currentWeapon, spawn /*_spawnPoint.position */, rotation); // _spawnPoint.rotation);
+        var copy = Instantiate(_currentWeapon, spawn, rotation);
         var bullet = copy.GetComponent<Bullet>();
         bullet.Fire(_details.speed);
         _coolingDown = true;
@@ -59,5 +62,7 @@ public class CurrentWeapon : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         _currentWeapon = _defaultWeapon;
         _details = _currentWeapon.GetComponent<WeaponDetails>();
+        StopAllCoroutines();
+        _coolingDown = false;
     }
 }

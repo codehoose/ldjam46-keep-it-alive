@@ -22,6 +22,5 @@ public class FireMechanism : MonoBehaviour
         var quat = Quaternion.LookRotation(vec.normalized, Vector3.up);
         var spawnPoint = transform.position + vec.normalized * _spawnDistance;
         _weapon.FireWeapon(spawnPoint, quat);
-        print(vec);
     }
 }
