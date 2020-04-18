@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LootBox
   - PlayerBullet
+  - Zombie
   layers:
   - Default
   - TransparentFX

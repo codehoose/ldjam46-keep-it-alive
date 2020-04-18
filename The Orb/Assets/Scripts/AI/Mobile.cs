@@ -27,7 +27,7 @@ public class Mobile : MonoBehaviour
         _agent.enabled = true;
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if (!_walking) return;
 
