@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ZombieSpawner : MonoBehaviour
+public class ZombieSpawner : MobSpawnerMonoBehaviour
 {
     public GameObject _zombiePrefab;
 
@@ -31,7 +31,9 @@ public class ZombieSpawner : MonoBehaviour
         copy.GetComponent<Mobile>().StartWalking(_target, _shiny);
         copy.GetComponent<Mobile>().IAmHit += (o, e) =>
           {
+              var pos = (o as GameObject).transform.position;
               Destroy(o as GameObject);
+              OnMobDead(pos);
           };
     }
 }

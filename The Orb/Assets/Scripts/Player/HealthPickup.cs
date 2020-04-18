@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class HealthPickup : MonoBehaviour, ILootDrop
+public class HealthPickup : LootDropMonoBehaviour
 {
     public float _healthRestored = 100f;
 
-    public void Apply(GameObject target)
+    public override void Apply(GameObject target)
     {
         var health = target.GetComponent<PlayerHealth>();
         health?.Add(_healthRestored);
