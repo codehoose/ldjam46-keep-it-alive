@@ -15,6 +15,8 @@ public class LootSpawner : MonoBehaviour
 
     public GameObject[] _prefabs;
 
+    public float _chanceOfDrop = 0.2f;
+
     void Awake()
     {
         foreach (var prefab in _prefabs)
@@ -30,10 +32,15 @@ public class LootSpawner : MonoBehaviour
     public void DropLoot(Vector3 position)
     {
         // 1 in 5 chance of winning a prize!
-        if (Random.Range(0, 1f) < 0.8f) return;
+        if (Random.Range(0, 1f) > _chanceOfDrop) return;
 
+        position.y = 0; // HACKY :D
         var copy = Instantiate(_lootBoxPrefab, position, Quaternion.identity);
         var lootBox = copy.GetComponent<LootBox>();
-        lootBox._loot = WeightedRandomizer.From(_weighted).TakeOne();
+        lootBox._loot = Instantiate(WeightedRandomizer.From(_weighted).TakeOne());
+
+        var visual = lootBox._loot.GetComponent<LootDropMonoBehaviour>()._containerPrefab;
+        var visualCopy = Instantiate(visual, lootBox.transform);
+        visualCopy.transform.localPosition = Vector3.zero;
     }
 }

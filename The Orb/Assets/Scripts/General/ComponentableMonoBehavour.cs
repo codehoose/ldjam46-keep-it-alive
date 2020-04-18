@@ -8,5 +8,7 @@ public abstract class LootDropMonoBehaviour : MonoBehaviour
     [Tooltip("The name of the item")]
     public string _dropName;
 
+    public GameObject _containerPrefab;
+
     public abstract void Apply(GameObject target);
 }

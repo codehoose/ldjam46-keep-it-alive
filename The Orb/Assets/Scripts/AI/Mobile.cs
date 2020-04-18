@@ -15,6 +15,7 @@ public class Mobile : MonoBehaviour
     {
         if (collision.gameObject.tag == "PlayerBullet")
         {
+            GetComponent<Collider>().enabled = false; // TURN OFF COLLIDER
             IAmHit?.Invoke(gameObject, EventArgs.Empty);
             Destroy(collision.gameObject);
         }
@@ -38,19 +39,4 @@ public class Mobile : MonoBehaviour
             _agent.isStopped = true;
         }
     }
-
-    //private void LateUpdate()
-    //{
-    //    if (!_followInitial) return;
-
-    //    if ((transform.position-_shiny.position).sqrMagnitude < 100)
-    //    {
-    //        _agent.SetDestination(_shiny.position);
-    //        _followInitial = false;
-    //    }
-    //    else
-    //    {
-    //        _agent.SetDestination(_target.position);
-    //    }
-    //}
 }
