@@ -3,23 +3,12 @@
 public class Locomotion : MonoBehaviour
 {
     private Rigidbody _rb;
-    //private CurrentWeapon _weapon;
 
     private float _speed = 20f;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        //_weapon = GetComponent<CurrentWeapon>();
-    }
-
-    void Update()
-    {
-        //if (Input.GetButton("Fire1"))
-        //{
-        //    // FOR TEST -- REMOVE
-        //    _weapon.FireWeapon();
-        //}
     }
 
     void FixedUpdate()
