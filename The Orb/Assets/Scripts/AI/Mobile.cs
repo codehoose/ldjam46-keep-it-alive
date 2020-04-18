@@ -4,8 +4,9 @@ using UnityEngine.AI;
 
 public class Mobile : MonoBehaviour
 {
-    private bool _walking;
+    private bool _followInitial;
     private Transform _target;
+    private Transform _shiny;
     private NavMeshAgent _agent;
 
     public event EventHandler IAmHit;
@@ -19,18 +20,37 @@ public class Mobile : MonoBehaviour
         }
     }
 
-    public void StartWalking(Transform target)
+    public void StartWalking(Transform target, Transform shiny)
     {
-        _walking = true;
+        _followInitial = true;
         _target = target;
+        _shiny = shiny;
         _agent = GetComponent<NavMeshAgent>();
         _agent.enabled = true;
+        _agent.destination = _shiny.position;
+
     }
 
-    private void LateUpdate()
+    void Update()
     {
-        if (!_walking) return;
-
-        _agent.SetDestination(_target.position);
+        if (_agent != null && !_agent.pathPending && _agent.remainingDistance < 5f)
+        {
+            _agent.isStopped = true;
+        }
     }
+
+    //private void LateUpdate()
+    //{
+    //    if (!_followInitial) return;
+
+    //    if ((transform.position-_shiny.position).sqrMagnitude < 100)
+    //    {
+    //        _agent.SetDestination(_shiny.position);
+    //        _followInitial = false;
+    //    }
+    //    else
+    //    {
+    //        _agent.SetDestination(_target.position);
+    //    }
+    //}
 }

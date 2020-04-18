@@ -7,6 +7,8 @@ public class ZombieSpawner : MonoBehaviour
 
     public Transform _target;
 
+    public Transform _shiny;
+
     public GameObject _boundary;
 
     public float _cooldown = 5f;
@@ -26,7 +28,7 @@ public class ZombieSpawner : MonoBehaviour
     {
         var facing = _target.position - transform.position;
         var copy = Instantiate(_zombiePrefab, transform.position, Quaternion.LookRotation(facing.normalized));
-        copy.GetComponent<Mobile>().StartWalking(_target);
+        copy.GetComponent<Mobile>().StartWalking(_target, _shiny);
         copy.GetComponent<Mobile>().IAmHit += (o, e) =>
           {
               Destroy(o as GameObject);
